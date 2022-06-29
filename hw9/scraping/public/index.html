@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scraping Node js</title>
+</head>
+<body>
+  <style>
+    .close {
+      display: none;
+    }
+    .btn::before {
+  content: '▶ ';
+  font-size: 80%;
+  color: rgb(0, 0, 0);
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+a {
+width: 350px;
+margin: 10px;
+}
+li {
+  list-style-type: none;
+  padding: 10px;
+}
+li img {
+  width: 100%;
+
+}
+  </style>
+  <h1>Новинки Кино и Сериалов</h1>
+
+  <button id="btn" class="btn">Сериалы</button>
+  <button id="btnFilms" class="btn">Фильмы</button>
+  <div class="list close"></div>
+  <div class="list2 close"></div>
+
+  <script>
+    let arrAll = [];
+    let dataAll = [];
+    let addS = document.querySelector('.list');
+    let addF = document.querySelector('.list2');
+
+    fetch('/list-films')
+      .then((res) => {
+        return res.json();
+        console.log(res.json());
+      }).then((data) => {
+        console.log(data)
+        dataAll = data;
+        addF = document.querySelector('.list2');
+        let ul = document.createElement('ul');
+        addF.appendChild(ul);
+        for (let i in dataAll) {
+          let a = document.createElement('a');
+          ul.appendChild(a);
+          a.setAttribute('href', `${dataAll[i].link}`);
+          let li = document.createElement('li'); 
+          a.appendChild(li);
+          li.innerText = dataAll[i].name; 
+          let img = document.createElement('img');  
+          img.setAttribute('src', `${dataAll[i].img}`);   
+          li.prepend(img);
+        }
+      })
+    // new fetch
+
+    fetch('/list-serial')
+      .then((res) => {
+        return res.json();
+        console.log(res.json());
+      }).then((arr) => {
+        console.log(arr)
+        arrAll = arr;
+         addS = document.querySelector('.list');
+        let ul = document.createElement('ul');
+        addS.appendChild(ul);
+        for (let i in arrAll) {
+          let a = document.createElement('a');
+          ul.appendChild(a);
+          a.setAttribute('href', `${arrAll[i].link}`);
+          let li = document.createElement('li'); 
+          a.appendChild(li);
+          li.innerText = arrAll[i].name; 
+          let img = document.createElement('img');  
+          img.setAttribute('src', `${arrAll[i].img}`);   
+          li.prepend(img);
+        }
+      })
+
+
+      btn.addEventListener('click', () => { // serials
+      addS.classList.toggle('close');
+      
+    })
+
+    btnFilms.addEventListener('click', () => { // films  
+      addF.classList.toggle('close');
+    })
+  </script>
+</body>
+
+</html>
