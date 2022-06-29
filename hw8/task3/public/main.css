@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+}
+* {
+    box-sizing: border-box;
+}
+form{
+    width: 70%;
+    margin:  50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+form input {
+    margin-top: 3px;
+    padding: 10px 10px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    background-color: #f6f6f6;
+}
+button{
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #000;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    color: white;
+}
