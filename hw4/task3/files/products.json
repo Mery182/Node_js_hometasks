@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Phone",
+    "nameproduct": "Sumsung",
+    "price": "400$" 
+  },
+  {
+    "id": 2,
+    "name": "Iron",
+    "nameproduct": "Bosch",
+    "price": "900$"    
+  },
+  {
+    "id": 3,
+    "name": "wash machine",
+    "nameproduct": "Candy",
+    "price": "300$"    
+  },
+  {
+    "id": 4,
+    "name": "Book",
+    "nameproduct": "JS",
+    "price": "10$"    
+  },
+  {
+    "id": 5,
+    "name": "Watch",
+    "nameproduct": "Android",
+    "price": "100$"  
+  },
+  {
+    "id": 6,
+    "name": "Book",
+    "nameproduct": "CSS",
+    "price": "15$"    
+  },
+  {
+    "id": 7,
+    "name": "FLOWERS",
+    "nameproduct": "ROSE",
+    "price": "2$"    
+  },
+  {
+    "id": 8,
+    "name": "CAR",
+    "nameproduct": "volvo",
+    "price": "100000$"    
+  }
+]

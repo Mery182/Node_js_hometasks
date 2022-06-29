@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="/images/fav16.png" sizes="16x16" type="image/png">
+    <link rel="shortcut icon" href="/images/fav96.png" sizes="96x96" type="image/png">
+    <link rel="stylesheet" href="/task3/main.css">
+</head>
+
+<body>
+    <section>
+        <h1> Сервер NODE JS</h1>
+        <span id="error"></span>
+        <div id="container">
+        </div>
+        <button id="btn">Посмотреть</button>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            addBlok();
+        });
+       // addBlok();
+        function addBlok() {
+            let button = document.getElementById('btn');
+            btn.addEventListener('click', () => {
+           
+                fetch('./files/products.json')
+                    .then((response) => { //response      
+                        if (response.ok) {
+                            return response.json(); // возвращает json с сервера
+                        } else {
+                            throw new Error('sdaa');
+                        }
+                    }).then((file) => { //если успех
+                        console.log(file);
+                        let products = file;
+                        let addBlok = document.getElementById('container');  
+                        for (var i = 0; i < 4; i++) {
+                         let d = document.createElement('div');
+                        addBlok.appendChild(d);
+                        d.innerHTML =
+                         `<h1>Товар: ${products[i].name}</h1> 
+                        <span>Бренд: ${products[i].nameproduct}</span><br>
+                        <h5>Цена: ${products[i].price} </h5>
+                        ` ;
+                        }
+                        let buttonMore = document.createElement('button');
+                        buttonMore.innerHTML = 'Больше товаров';
+                        //////
+                        buttonMore.addEventListener('click',()=>{
+                            for (var i = 4; i > 4, i < products.length; i++) {
+                         let d = document.createElement('div');
+                        addBlok.appendChild(d);
+                        d.innerHTML =
+                         `<h1>Товар: ${products[i].name}</h1> 
+                        <span>Бренд: ${products[i].nameproduct}</span><br>
+                        <h5>Цена: ${products[i].price} </h5>
+                        ` ;
+                        }
+                        buttonMore.remove();
+                        btn.remove();
+                        })
+
+                        /////
+                        addBlok.append(buttonMore);
+                        
+                    }).catch((err) => { //если неудача
+                        let div = document.getElementById('error')
+                        div.innerHTML = '<p>Ошибка на стороне сервера</p>';
+    
+    
+                    })
+            })
+           
+        }
+    </script>
+</body>
+</html>
