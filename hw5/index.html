@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <section id="question_blok">
+        <h1>Голосование</h1>
+        <div class="question"></div>
+    </section>
+    <span id="info"></span>
+
+
+    <!-- GET -->
+    <script>
+        //    document.addEventListener("DOMContentLoaded", (event) => {
+        //         addQuestionBlok();
+        //     });
+        addQuestionBlok();
+
+        function addQuestionBlok() {
+            fetch('/questionArray')
+                .then((response) => {
+                    return response.json();
+
+                }).then((arr) => {
+                        let randomItem = Math.floor(Math.random() * arr.length);
+                        let oneRandomItem = arr[randomItem]; 
+                        let section_blok = document.getElementById('question_blok');
+                        let blok = document.querySelector('.question');
+                        let allLabelBlok = document.createElement('div');
+                        blok.innerHTML = oneRandomItem.question;
+                        section_blok.appendChild(blok);
+                        blok.appendChild(allLabelBlok);
+                        // start loop
+                        for (let i = 0; i < oneRandomItem.answers.length; i++) {
+                            let input = document.createElement('input');
+                            let label = document.createElement('label');
+                            label.for = 'choose';
+                            label.innerHTML = oneRandomItem.answers[i].title;
+                            input.type = 'radio';
+                            input.name = 'choose';
+                            input.value = oneRandomItem.answers[i].number_of_votes;
+                            allLabelBlok.appendChild(label);
+                            label.append(input);
+                            // отправка данных на сервер
+                            input.addEventListener('click', (e) => {
+                                let x = e.target;
+                                let valuePlusOne = parseInt(x.value) + 1;      
+                                console.log(oneRandomItem, x, valuePlusOne);     
+                                let newInfo = {
+                                    quest: oneRandomItem.question,
+                                    title: oneRandomItem.answers[i].title
+                                }    
+                                console.log(JSON.stringify(newInfo));           
+                                fetch('/vote', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify(newInfo)
+                                    }).then((res) => {
+                                        if (res.ok) {
+                                            console.log('Ваши данные отправлены');
+
+                                        } else {
+                                            console.log('проблемы');
+                                        }
+                                        return res.text();
+                                    }).then((data) => {
+                                        return data;
+                                        console.log(data);
+                                    })
+                                    .catch((err) => {
+                                        console.log(err);
+                                    })
+                                setTimeout(() => {
+                                    blok.innerHTML =
+                                        `
+                                Cпасибо за ваш голос! <br>
+                                <b>Количество проголосовавших:</b>  ${valuePlusOne}`;
+                                }, 1500);
+                            })
+                            //
+                        //     console.log(input.value);
+                        //    input.value = valuePlusOne;
+                        console.log(arr);
+                        } // the end loop
+                        }).catch((e) => {
+                        console.log('Ошибка');
+                    })
+                   
+                }
+    </script>
+
+</body>
+
+</html>
